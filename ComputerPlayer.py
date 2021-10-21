@@ -43,38 +43,38 @@ class ComputerPlayer(Player):
             self.gridShots.changeSingleSpace(x, y, "0")
 
     def placeShip(self, ship, size):
-        s = 1
-        isVert = random.randint(0, 2)
-        vertical = False
-        if (isVert == 0):  # randomly decide if vertical
-            vertical = True
-        if vertical: # if vertical
-            x = random.randint(0, 9)
-            initialY = random.randint(0, (9 - (size + 1)))  # so it fits
-            y = initialY
-            print (y,x)
-            s = 0
-            while s < size : #check to make sure none overlap
-                if not self.gridShips.isSpaceWater(y,x) : #if ship already there
-                    self.gridShips.placeShip(ship,size)
-                s = s+1
-                y = y+1
-            self.gridShips.changeCol(x, ship, initialY, size)
-        else: # if horizontal
-            initialX = random.randint(0, (9 - (size + 1)))  # so it fits
-            y = random.randint(0, 9)
-            x = initialX
-            print(y, x)
-            s = 0
-            while s < size : #check to make sure none overlap
-                if not self.gridShips.isSpaceWater(y,x) : #if ship already there
-                    self.gridShips.placeShip(ship,size)
-                s = s+1
-                x = x+1
-            self.gridShips.changeRow(y, ship, initialX, size)
+        while True:
+            isVert = random.randint(0, 1)
+            if (isVert == 0): # if vertical
+                col = random.randint(0, 9)
+                row = random.randint(0, (9 - size)) # so it fits
+                if self.canBePlaced(1,row,col,size) :
+                    self.gridShips.changeCol(col, ship, row, size)
+                    break
+                else :
+                    continue
+            else: # if horizontal
+                col = random.randint(0, (9 - size))  # so it fits
+                row = random.randint(0, 9)
+                if self.canBePlaced(0, row, col, size):
+                    self.gridShips.changeRow(row, ship, col, size)
+                    break
+                else:
+                    continue
 
     def stillHasShips(self):
         if self.aCount == 0 and self.bCount == 0 and self.cCount == 0 and self.sCount == 0 and self.dCount == 0: # if no ships left
             return False
         else: # ships left
             return True
+
+    def canBePlaced(self, isVertical, row, col, size):
+        if isVertical == 1 :
+            for r in range (size) :
+                if not self.gridShips.isSpaceWater(row+r, col) :
+                    return False
+        else :
+            for c in range(size):
+                if not self.gridShips.isSpaceWater(row, col+c) :
+                    return False
+        return True
