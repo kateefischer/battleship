@@ -10,8 +10,6 @@ class humanPlayer(Player):
         self.countD = 0
 
 
-
-
     def placeShip(self, ship, size):  # places ships
         self.printGrids()
         while (True):
