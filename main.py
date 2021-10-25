@@ -1,9 +1,8 @@
-from ComputerPlayer import ComputerPlayer
+from humanPlayer import humanPlayer
 from Player import Player
 from Grid import Grid
 p = Player()
 g = Grid()
-c = ComputerPlayer()
+c = humanPlayer()
 c.createShipGrid()
 c.printGrids()
-

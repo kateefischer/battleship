@@ -9,8 +9,11 @@ class humanPlayer(Player):
         self.countS = 0
         self.countD = 0
 
+
+
+
     def placeShip(self, ship, size):  # places ships
-        slef.printGrids()
+        self.printGrids()
         while (True):
             print("Lets place your ship that is ", size, "places")
             row = int(input("Enter the coordinate of the row where ship starts"))
@@ -78,6 +81,17 @@ class humanPlayer(Player):
             return False
         else:  # ships left
             return True
+
+    def canBePlaced(self, direction, row, col, size):
+        p = "V" or "v"
+        if direction == p:
+            for r in range(size):
+                if not self.gridShips.isSpaceWater(row+r, col) :
+                    return False
+        else :
+            for c in range(size):
+                if not self.gridShips.isSpaceWater(row, col+c) :
+                    return False
 
 
 
