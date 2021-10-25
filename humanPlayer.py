@@ -10,7 +10,7 @@ class humanPlayer(Player):
         self.countD = 0
 
     def placeShip(self, ship, size):  # places ships
-        slef.printGrids()
+        self.printGrids()
         while (True):
             print("Lets place your ship that is ", size, "places")
             row = int(input("Enter the coordinate of the row where ship starts"))
@@ -33,6 +33,16 @@ class humanPlayer(Player):
                     print("invalid entry try again!")
                     continue
 
+    def canBePlaced(self, isVertical, row, col, size):
+        if isVertical == 1 :
+            for r in range (size) :
+                if not self.gridShips.isSpaceWater(row+r, col) :
+                    return False
+        else :
+            for c in range(size):
+                if not self.gridShips.isSpaceWater(row, col+c) :
+                    return False
+        return True
 
     def takeTurn(self, otherPlayer): #pick a square and put something down
         while (True):
