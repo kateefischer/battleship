@@ -10,33 +10,28 @@ class humanPlayer(Player):
         self.countD = 0
 
     def placeShip(self, ship, size):  # places ships
-        a = True
+        slef.printGrids()
         while (True):
+            print("Lets place your ship that is ", size, "places")
             row = int(input("Enter the coordinate of the row where ship starts"))
             col = int(input("Enter the coordinate of the col where ship starts"))
             direction = input("Horizontal (H) or Vertical? (V)")
-            if row>10 or col>10 or row<0 or col<0 :  # if the placement is out of bounds for both the col and rows
-                continue
-            direction = direction.upper()
-            if direction != "V" and direction != "H":  # if direction is invalid
-                continue
-            inGrid = self.gridShips.isSpaceWater(row, col)
-            if inGrid :  # if placed invalidly
-                continue
-            if direction=="H": # if direction is horizontal
-                col1 = col
-                while col1 < size + col: #repeats until ship is full
-                    if not self.gridShips.isSpaceWater(row, col1):
-                        self.gridShips.placeShip(ship, size)
-                    col1 = col1 + 1
-                self.gridShips.changeCol(row, ship, col, size)
-            elif direction == "V": # if direction is vertical
-                row1 = row
-                while row1 < size + row: # repeats until ship is done
-                    if not self.gridShips.isSpaceWater(row1, col):
-                        self.gridShips.placeShip(ship,size)
-                    row1 = row1 + 1
-                self.gridShips.changeCol(row, ship, col, size)
+            proceed = "V" or "v"
+
+            if direction == proceed:
+                if self.canBePlaced(direction,row,col,size):
+                    self.gridShips.changeRow(col,ship,row,size)
+                    break
+                else:
+                    print("invalid entry try again!")
+                    continue
+            else:
+                if self.canBePlaced(direction,row,col,size):
+                    self.gridShips.changeCol(col,ship,row,size)
+                    break
+                else:
+                    print("invalid entry try again!")
+                    continue
 
 
     def takeTurn(self, otherPlayer): #pick a square and put something down
