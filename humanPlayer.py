@@ -55,40 +55,41 @@ class humanPlayer(Player):
         while (True):
             rowGuess = int(input("Please enter your guess for the row"))
             colGuess = int(input("Please enter your guess for the column"))
-            if (rowGuess < 0 or rowGuess > 9):  # if guess is out of bounds
-                continue
-            if (rowGuess < 0 or rowGuess > 9):  # if guess is out of bounds
-                continue
-            if self.gridShots[rowGuess, colGuess] == "-" or self.gridShots[rowGuess, colGuess] == "~": # out of bounds
-                continue
-            if otherPlayer.returnLocation(rowGuess,colGuess)== "A": #if it is ship A
+            if otherPlayer.gridShips.isSpaceWater(rowGuess, colGuess):  # if space is water
+                print("You hit water")
+                self.gridShots.changeSingleSpace(rowGuess, colGuess, "X")
+            elif otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "X" or self.gridShots.returnLocation(rowGuess,colGuess) == "0":  # turn has already been played
+                self.takeTurn()
+            else:  # ship has been hit
                 print("You hit a ship")
-                self.countA = 1+self.countA
-                if self.countA>=5: # if the ship is completely hit
-                    print("you suck the A ship")
-            if otherPlayer.returnLocation(rowGuess,colGuess)== "B": # if it is ship B
-                print("You hit a ship")
-                self.countB = 1+self.countB
-                if self.countB>=4: # if the ship is completely hit
-                    print("you suck the B ship")
-            if otherPlayer.returnLocation(rowGuess,colGuess)== "C": #if it is ship C
-                print("You hit a ship")
-                self.countC = 1+self.countC
-                if self.countC>=3:# if the ship is completely hit
-                    print("you suck the C ship")
-            if otherPlayer.returnLocation(rowGuess,colGuess)== "S": # if it is ship S
-                print("You hit a ship")
-                self.countS = 1+self.countS
-                if self.countS>=3:# if the ship is completely hit
-                    print("you suck the S ship")
-            if otherPlayer.returnLocation(rowGuess,colGuess)== "D": # if it is ship D
-                print("You hit a ship")
-                self.countD = 1+self.countD
-                if self.countD>=2:# if the ship is completely hit
-                    print("you suck the D ship")
-            if otherPlayer.returnLocation(rowGuess,colGuess)=="~": #if they did not hit anything
-                print("You did not hit anything")
-            self.gridShots.changeSingleSpace(rowGuess, colGuess, "0")
+                if otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "A":  # if it is ship A
+                    print("You hit a ship")
+                    self.countA = 1 + self.countA
+                    if self.countA >= 5:  # if the ship is completely hit
+                        print("you suck the A ship")
+                if otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "B":  # if it is ship B
+                    print("You hit a ship")
+                    self.countB = 1 + self.countB
+                    if self.countB >= 4:  # if the ship is completely hit
+                        print("you suck the B ship")
+                if otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "C":  # if it is ship C
+                    print("You hit a ship")
+                    self.countC = 1 + self.countC
+                    if self.countC >= 3:  # if the ship is completely hit
+                        print("you suck the C ship")
+                if otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "S":  # if it is ship S
+                    print("You hit a ship")
+                    self.countS = 1 + self.countS
+                    if self.countS >= 3:  # if the ship is completely hit
+                        print("you suck the S ship")
+                if otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "D":  # if it is ship D
+                    print("You hit a ship")
+                    self.countD = 1 + self.countD
+                    if self.countD >= 2:  # if the ship is completely hit
+                        print("you suck the D ship")
+                if otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "~":  # if they did not hit anything
+                    print("You did not hit anything")
+                self.gridShots.changeSingleSpace(rowGuess, colGuess, "0")
 
     def stillHasShips(self):
         if self.CountA == 5 and self.CountB == 4 and self.CountC == 3 and self.CountS == 3 and self.CountD == 2:  # if no ships left
