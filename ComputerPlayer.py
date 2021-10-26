@@ -16,23 +16,23 @@ class ComputerPlayer(Player):
         if otherPlayer.gridShips.isSpaceWater(x, y):  # if space is water
             print("You hit water")
             self.gridShots.changeSingleSpace(x, y, "X")
-        elif otherPlayer.returnLocation(x, y) == "X" or self.gridShots.returnLocation(x,y) == "0":  # turn has already been played
+        elif otherPlayer.gridShots.returnLocation(x, y) == "X" or self.gridShots.returnLocation(x,y) == "0":  # turn has already been played
             self.takeTurn()
         else: # ship has been hit
             print("You hit a ship")
-            if otherPlayer.returnLocation(x, y) == "A": # a ship hit
+            if otherPlayer.gridShots.returnLocation(x, y) == "A": # a ship hit
                 self.aCount = self.aCount - 1
                 if self.aCount == 0: # all as hit
                     print("You sunk the A ship")
-            elif otherPlayer.returnLocation(x, y) == "B": # b ship hit
+            elif otherPlayer.gridShots.returnLocation(x, y) == "B": # b ship hit
                 self.bCount = self.bCount - 1
                 if self.bCount == 0: # all bs hit
                     print("You sunk the B ship")
-            elif otherPlayer.returnLocation(x, y) == "C": # c ship hit
+            elif otherPlayer.gridShots.returnLocation(x, y) == "C": # c ship hit
                 self.cCount = self.cCount - 1
                 if self.cCount == 0: # all cs hit
                     print("You sunk the C ship")
-            elif otherPlayer.returnLocation(x, y) == "S": # s ship hit
+            elif otherPlayer.gridShots.returnLocation(x, y) == "S": # s ship hit
                 self.sCount = self.sCount - 1
                 if self.sCount == 0: # all ss hit
                     print("You sunk the S ship")
