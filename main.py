@@ -10,7 +10,7 @@ c.printGrids()
 h.createShipGrid()
 h.printGrids()
 while (h.stillHasShips and c.stillHasShips()):
-    h.takeTurn(c)
     c.takeTurn(h)
     c.printGrids()
+    h.takeTurn(c)
     h.printGrids()

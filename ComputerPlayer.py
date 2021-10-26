@@ -13,7 +13,7 @@ class ComputerPlayer(Player):
     def takeTurn(self, otherPlayer):
         x = random.randint(0, 10)
         y = random.randint(0, 10)
-        if otherPlayer.isSpaceWater(x, y):  # if space is water
+        if otherPlayer.gridShips.isSpaceWater(x, y):  # if space is water
             print("You hit water")
             self.gridShots.changeSingleSpace(x, y, "X")
         elif otherPlayer.returnLocation(x, y) == "X" or self.gridShots.returnLocation(x,y) == "0":  # turn has already been played
