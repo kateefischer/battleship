@@ -17,16 +17,24 @@ class humanPlayer(Player):
             row = int(input("Enter the coordinate of the row where ship starts"))
             col = int(input("Enter the coordinate of the col where ship starts"))
             direction = int(input("Horizontal (1) or Vertical? (0)"))
-
+            if row>9 or row<0 or col>9 or row<0:
+                print("invalid entry try again!")
+                continue
+            if direction == 1 and col + size > 10 :
+                print("invalid entry try again!")
+                continue
+            if direction ==0 and row +size>10:
+                print("invalid entry try again!")
+                continue
             if direction == 1:
-                if self.canBePlaced(direction,row,col,size):
+                if self.canBePlaced(1,row,col,size):
                     self.gridShips.changeRow(row,ship,col,size)
                     break
                 else:
                     print("invalid entry try again!")
                     continue
             else:
-                if self.canBePlaced(direction,row,col,size):
+                if self.canBePlaced(0,row,col,size):
                     self.gridShips.changeCol(col,ship,row,size)
                     break
                 else:
@@ -89,6 +97,10 @@ class humanPlayer(Player):
         else:  # ships left
             return True
 
+
+
+
+
     def canBePlaced(self, direction, row, col, size):
         if direction == 1:
             for r in range(size):
@@ -99,6 +111,7 @@ class humanPlayer(Player):
                 if not self.gridShips.isSpaceWater(row, col+c):
                     return False
         return True
+
 
 
 
