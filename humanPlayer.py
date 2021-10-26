@@ -16,12 +16,11 @@ class humanPlayer(Player):
             print("Lets place your ship that is ", size, "places")
             row = int(input("Enter the coordinate of the row where ship starts"))
             col = int(input("Enter the coordinate of the col where ship starts"))
-            direction = input("Horizontal (H) or Vertical? (V)")
-            proceed = "V" or "v"
+            direction = int(input("Horizontal (1) or Vertical? (0)"))
 
-            if direction == proceed:
+            if direction == 1:
                 if self.canBePlaced(direction,row,col,size):
-                    self.gridShips.changeRow(col,ship,row,size)
+                    self.gridShips.changeRow(row,ship,col,size)
                     break
                 else:
                     print("invalid entry try again!")
@@ -81,15 +80,15 @@ class humanPlayer(Player):
             return True
 
     def canBePlaced(self, direction, row, col, size):
-        p = "V" or "v"
-        if direction == p:
+        if direction == 1:
             for r in range(size):
-                if not self.gridShips.isSpaceWater(row+r, col) :
+                if not self.gridShips.isSpaceWater(row+r, col):
                     return False
-        else :
+        else:
             for c in range(size):
-                if not self.gridShips.isSpaceWater(row, col+c) :
+                if not self.gridShips.isSpaceWater(row, col+c):
                     return False
+        return True
 
 
 
