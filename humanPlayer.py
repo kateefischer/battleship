@@ -87,8 +87,6 @@ class humanPlayer(Player):
                     self.countD = 1 + self.countD
                     if self.countD >= 2:  # if the ship is completely hit
                         print("you suck the D ship")
-                if otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "~":  # if they did not hit anything
-                    print("You did not hit anything")
                 self.gridShots.changeSingleSpace(rowGuess, colGuess, "0")
 
     def stillHasShips(self):
