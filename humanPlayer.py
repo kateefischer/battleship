@@ -58,6 +58,7 @@ class humanPlayer(Player):
             if otherPlayer.gridShips.isSpaceWater(rowGuess, colGuess):  # if space is water
                 print("You hit water")
                 self.gridShots.changeSingleSpace(rowGuess, colGuess, "X")
+                break
             elif otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "X" or self.gridShots.returnLocation(rowGuess,colGuess) == "0":  # turn has already been played
                 self.takeTurn()
             else:  # ship has been hit
@@ -87,10 +88,12 @@ class humanPlayer(Player):
                     self.countD = 1 + self.countD
                     if self.countD >= 2:  # if the ship is completely hit
                         print("you suck the D ship")
+                break
                 self.gridShots.changeSingleSpace(rowGuess, colGuess, "0")
 
+
     def stillHasShips(self):
-        if self.CountA == 5 and self.CountB == 4 and self.CountC == 3 and self.CountS == 3 and self.CountD == 2:  # if no ships left
+        if self.countA == 5 and self.countB == 4 and self.countC == 3 and self.countS == 3 and self.countD == 2:  # if no ships left
             return False
         else:  # ships left
             return True
