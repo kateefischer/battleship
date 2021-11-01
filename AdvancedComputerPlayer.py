@@ -22,30 +22,37 @@ class AdvancedComputerPlayer(Player):
 
     count = 0
 
-    def verticalHit(self):
+    def verticalHit(self,x):
         newx = x
         while (count<1):
-            if otherPlayer.gridShots(x+1,y)=="~":
-                break
-            elif otherPlayer.gridShots.returnLocation(x + 1, y) == "X":
+            if otherPlayer.gridShots.returnLocation(x + 1, y) == "X":
                 x = x + 1
             else:
-                count = count+1
-        while (count<2):
-            x1=newx
-            if otherPlayer.gridShots(x1-1,y)=="~":
+                count = count + 1
                 break
-            elif otherPlayer.gridShots.returnLocation(x1 - 1, y) == "X":
-                x1 = x1 - 1
+        while (count<2):
+            x=newx
+            if otherPlayer.gridShots.returnLocation(x - 1, y) == "X":
+                x = x - 1
             else:
-                count = count+1
+                count = count + 1
+                break
 
-
-
-
-
-    def horizontalHit(self):
-
+    def horizontalHit(self,y):
+        newy = y
+        while (count < 1):
+            if otherPlayer.gridShots.returnLocation(x, y+1) == "X":
+                y = y + 1
+            else:
+                count = count + 1
+                break
+        while (count < 2):
+            y = newy
+            if otherPlayer.gridShots.returnLocation(x, y-1) == "X":
+                y = y - 1
+            else:
+                count = count + 1
+                break
 
 
 
