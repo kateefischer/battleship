@@ -10,6 +10,49 @@ class AdvancedComputerPlayer(Player):
         self.sCount = 3
         self.dCount = 2
 
+
+        if otherPlayer.gridShots.returnLocation(x, y) == "X":
+            while(True):
+                    if otherPlayer.gridShots.returnLocation(x+1 or x-1,y)=="X":
+                        horizontalHit()
+                        break
+                    else:
+                        verticalHit()
+                        break
+
+    count = 0
+
+    def verticalHit(self):
+        newx = x
+        while (count<1):
+            if otherPlayer.gridShots(x+1,y)=="~":
+                break
+            elif otherPlayer.gridShots.returnLocation(x + 1, y) == "X":
+                x = x + 1
+            else:
+                count = count+1
+        while (count<2):
+            x1=newx
+            if otherPlayer.gridShots(x1-1,y)=="~":
+                break
+            elif otherPlayer.gridShots.returnLocation(x1 - 1, y) == "X":
+                x1 = x1 - 1
+            else:
+                count = count+1
+
+
+
+
+
+    def horizontalHit(self):
+
+
+
+
+
+
+
+
     def takeTurn(self, otherPlayer):
         col = 1
         row = 0
