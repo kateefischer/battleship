@@ -90,14 +90,3 @@ class AdvancedComputerPlayer(Player):
                     print("You sunk the D ship")
             self.gridShots.changeSingleSpace(x, y, "0")
 
-    def alreadyHit(self, otherPlayer, col, row):
-        if otherPlayer.gridShots.returnLocation(col, row) == "X" or self.gridShots.returnLocation(col, row) == "0":
-            return True
-        else:
-            return False
-
-    def validValue(self, col, row):
-        if (col < 10 and row < 10) and (col >= 0 and row >= 0):
-            return True
-        else:
-            return False
