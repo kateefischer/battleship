@@ -60,7 +60,7 @@ class humanPlayer(Player):
                 self.gridShots.changeSingleSpace(rowGuess, colGuess, "X")
                 break
             elif otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "X" or self.gridShots.returnLocation(rowGuess,colGuess) == "0":  # turn has already been played
-                self.takeTurn()
+                self.takeTurn(otherPlayer)
             else:  # ship has been hit
                 print("You hit a ship")
                 if otherPlayer.gridShots.returnLocation(rowGuess, colGuess) == "A":  # if it is ship A

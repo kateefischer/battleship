@@ -1,7 +1,7 @@
 import random
 from Player import Player
 
-class AdvancedComputerPlayer2(Player):
+class AdvancedComputerPlayer(Player):
     def __init__(self):
         Player.__init__(self)
         self.aCount = 5
@@ -9,50 +9,21 @@ class AdvancedComputerPlayer2(Player):
         self.cCount = 3
         self.sCount = 3
         self.dCount = 2
-        justHit = False
-        verticalHit = False
-        horizontalHit = False
-        previousX = 0
-        previousY = 0
+        self.col = 1
+        self.row = 0
 
-
-
-    def takeTurn(self, otherPlayer):
-        x = random.randint(0, 10)
-        y = random.randint(0, 10)
-        if otherPlayer.gridShips.isSpaceWater(x, y):  # if space is water
-            print("You hit water")
-            self.gridShots.changeSingleSpace(x, y, "X")
-        elif otherPlayer.gridShots.returnLocation(x, y) == "X" or self.gridShots.returnLocation(x,y) == "0":  # turn has already been played
-            self.takeTurn()
-        else: # ship has been hit
-            print("You hit a ship")
-            if otherPlayer.gridShots.returnLocation(x, y) == "A": # a ship hit
-                self.aCount = self.aCount - 1
-                if self.aCount == 0: # all as hit
-                    print("You sunk the A ship")
-            elif otherPlayer.gridShots.returnLocation(x, y) == "B": # b ship hit
-                self.bCount = self.bCount - 1
-                if self.bCount == 0: # all bs hit
-                    print("You sunk the B ship")
-            elif otherPlayer.gridShots.returnLocation(x, y) == "C": # c ship hit
-                self.cCount = self.cCount - 1
-                if self.cCount == 0: # all cs hit
-                    print("You sunk the C ship")
-            elif otherPlayer.gridShots.returnLocation(x, y) == "S": # s ship hit
-                self.sCount = self.sCount - 1
-                if self.sCount == 0: # all ss hit
-                    print("You sunk the S ship")
-            else: # d ship hit
-                self.dCount = self.dCount - 1
-                if self.dCount == 0: # all ds hit
-                    print("You sunk the D ship")
-            self.gridShots.changeSingleSpace(x, y, "0")
-            if otherPlayer.gridShots.returnLocation(x + 1 or x - 1, y) == "0":
-                horizontalHit()
-            elif otherPlayer.gridShots.returnLocation(x, y + 1 or y - 1) == "0":
-                verticalHit()
-
+    def takeTurn(self,otherPlayer):
+        if self.col < 8 : # if not the last column of the set
+            self.shoot(otherPlayer, self.row, self.col)
+            self.col = self.col+2
+        elif self.col == 9 or self.col == 8  : # if last column of the set (9 first time, 8 second)
+            self.shoot(otherPlayer, self.row, self.col)
+            self.col = 1
+            self.row = self.row+1
+        if self.row > 9 : # got to last row
+            self.col = 0
+            self.row = 0
+            self.shoot(otherPlayer, self.row, self.col)
 
     def placeShip(self, ship, size):
         while True:
@@ -90,3 +61,43 @@ class AdvancedComputerPlayer2(Player):
                 if not self.gridShips.isSpaceWater(row, col+c) :
                     return False
         return True
+
+    def shoot(self, otherPlayer, row, col):
+        if otherPlayer.gridShips.isSpaceWater(row, col):  # if space is water
+            print("You hit water")
+            self.gridShots.changeSingleSpace(row, col, "X")
+        else:
+            print("You hit a ship")
+            if otherPlayer.gridShots.returnLocation(col, row) == "A":  # a ship hit
+                self.aCount = self.aCount - 1
+                if self.aCount == 0:  # all as hit
+                    print("You sunk the A ship")
+            elif otherPlayer.gridShots.returnLocation(row, col) == "B":  # b ship hit
+                self.bCount = self.bCount - 1
+                if self.bCount == 0:  # all bs hit
+                    print("You sunk the B ship")
+            elif otherPlayer.gridShots.returnLocation(row, col) == "C":  # c ship hit
+                self.cCount = self.cCount - 1
+                if self.cCount == 0:  # all cs hit
+                    print("You sunk the C ship")
+            elif otherPlayer.gridShots.returnLocation(row, col) == "S":  # s ship hit
+                self.sCount = self.sCount - 1
+                if self.sCount == 0:  # all ss hit
+                    print("You sunk the S ship")
+            else:  # d ship hit
+                self.dCount = self.dCount - 1
+                if self.dCount == 0:  # all ds hit
+                    print("You sunk the D ship")
+            self.gridShots.changeSingleSpace(x, y, "0")
+
+    def alreadyHit(self, otherPlayer, col, row):
+        if otherPlayer.gridShots.returnLocation(col, row) == "X" or self.gridShots.returnLocation(col, row) == "0":
+            return True
+        else:
+            return False
+
+    def validValue(self, col, row):
+        if (col < 10 and row < 10) and (col >= 0 and row >= 0):
+            return True
+        else:
+            return False

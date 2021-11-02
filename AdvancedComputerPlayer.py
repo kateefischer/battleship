@@ -10,7 +10,7 @@ class AdvancedComputerPlayer(Player):
         self.sCount = 3
         self.dCount = 2
 
-
+        count = 0
         if otherPlayer.gridShots.returnLocation(x, y) == "X":
             while(True):
                     if otherPlayer.gridShots.returnLocation(x+1 or x-1,y)=="X":
@@ -20,11 +20,11 @@ class AdvancedComputerPlayer(Player):
                         verticalHit()
                         break
 
-    count = 0
+
 
     def verticalHit(self,x):
         newx = x
-        while (count<1):
+        while (self.count<1):
             if otherPlayer.gridShots.returnLocation(x + 1, y) == "X":
                 x = x + 1
             else:
