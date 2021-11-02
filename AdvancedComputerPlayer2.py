@@ -12,7 +12,7 @@ class AdvancedComputerPlayer(Player):
         self.col = 1
         self.row = 0
 
-    def takeTurn(self,otherPlayer):
+    def takeTurn(self,otherPlayer):#chooses a spot to shoot
         if self.col < 8 : # if not the last column of the set
             self.shoot(otherPlayer, self.row, self.col)
             self.col = self.col+2
@@ -25,7 +25,7 @@ class AdvancedComputerPlayer(Player):
             self.row = 0
             self.shoot(otherPlayer, self.row, self.col)
 
-    def placeShip(self, ship, size):
+    def placeShip(self, ship, size):# places ships
         while True:
             isVert = random.randint(0, 1)
             if (isVert == 0): # if vertical
@@ -52,13 +52,13 @@ class AdvancedComputerPlayer(Player):
             return True
 
     def canBePlaced(self, isVertical, row, col, size):
-        if isVertical == 1 :
-            for r in range (size) :
-                if not self.gridShips.isSpaceWater(row+r, col) :
+        if isVertical == 1 :#if it is vertical
+            for r in range (size) :#for loop
+                if not self.gridShips.isSpaceWater(row+r, col) :#is it is not water
                     return False
-        else :
-            for c in range(size):
-                if not self.gridShips.isSpaceWater(row, col+c) :
+        else :#if horizontal
+            for c in range(size):#for loop
+                if not self.gridShips.isSpaceWater(row, col+c) :#if the column is not in water
                     return False
         return True
 
